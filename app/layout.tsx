@@ -1,6 +1,8 @@
 import { cn } from "@/lib/utils";
 import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
+import { ThemeProvider } from "./_components/theme-provider";
+import { ThemeToggle } from "./_components/theme-toggle";
 
 export const metadata = {
   metadataBase: new URL("https://postgres-drizzle.vercel.app"),
@@ -22,7 +24,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang='en' suppressHydrationWarning>
       <head />
       <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
-        {children}
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange>
+          <ThemeToggle />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
