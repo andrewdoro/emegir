@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   EditorRoot,
   EditorCommand,
@@ -44,7 +44,7 @@ const updatedImage = UpdatedImage.configure({
 
 const taskList = TaskList.configure({
   HTMLAttributes: {
-    class: cx("not-prose pl-2 "),
+    class: cx("not-prose pl-2"),
   },
 });
 const taskItem = TaskItem.configure({
@@ -231,18 +231,22 @@ export const slashCommand = Command.configure({
 
 const extensions = [...defaultExtensions, slashCommand];
 
-const Editor = () => {
-  const [initialContent, setInitialContent] = useState<null | JSONContent>(null);
+interface EditorProps {
+  onContentChange: (content: JSONContent) => void;
+  defaultContent: JSONContent | null;
+  className: string;
+}
 
+const Editor = ({ className, defaultContent, onContentChange }: EditorProps) => {
   const [openNode, setOpenNode] = useState(false);
   const [openColor, setOpenColor] = useState(false);
   const [openLink, setOpenLink] = useState(false);
-  const [openAI, setOpenAI] = useState(false);
 
   return (
     <EditorRoot>
       <EditorContent
-        initialContent={initialContent}
+        className={className}
+        initialContent={defaultContent ?? undefined}
         extensions={extensions}
         editorProps={{
           handleDOMEvents: {
@@ -252,7 +256,9 @@ const Editor = () => {
             class: `prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
           },
         }}
-        onUpdate={({ editor }) => {}}
+        onUpdate={({ editor }) => {
+          onContentChange(editor.getJSON());
+        }}
         slotAfter={<ImageResizer />}>
         <EditorCommand className='z-50 h-auto max-h-[330px] overflow-y-auto rounded-md border border-muted bg-background px-1 py-2 shadow-md transition-all'>
           <EditorCommandEmpty className='px-2 text-muted-foreground'>No results</EditorCommandEmpty>
