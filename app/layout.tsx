@@ -40,7 +40,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           defaultTheme='system'
           enableSystem
           disableTransitionOnChange>
-          <div>
+          <div className='px-6 max-w-7xl mx-auto'>
             <Navbar />
             {children}
           </div>

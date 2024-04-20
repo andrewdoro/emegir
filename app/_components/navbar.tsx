@@ -1,13 +1,12 @@
 import React from "react";
 import { ThemeToggle } from "./theme-toggle";
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import CuneiformIcon from "@/components/ui/cuneiform-icon";
+import { GithubIcon } from "lucide-react";
 
 const Navbar = () => {
   return (
-    <div className='flex justify-between items-center w-full gap-4 p-4'>
+    <div className='flex justify-between py-6 items-center w-full gap-4'>
       <ThemeToggle />
 
       {/* <Link href='https://vercel.com'>
@@ -15,7 +14,7 @@ const Navbar = () => {
       </Link> */}
       <Link href='https://github.com/andrewdoro/emegir' className='flex items-center space-x-2'>
         <Button variant='ghost' size='icon'>
-          <Image src='/github.svg' alt='GitHub Logo' width={24} height={24} priority />
+          <GithubIcon />
         </Button>
       </Link>
     </div>
