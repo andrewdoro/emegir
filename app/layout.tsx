@@ -1,8 +1,11 @@
 import { cn } from "@/lib/utils";
 import "./globals.css";
-import { Inter as FontSans, Lugrasimo } from "next/font/google";
+import { Noto_Sans_Cuneiform } from "next/font/google";
+import localFont from "next/font/local";
+
 import { ThemeProvider } from "./_components/theme-provider";
 import Navbar from "./_components/navbar";
+import Footer from "./_components/footer";
 
 export const metadata = {
   metadataBase: new URL("https://postgres-drizzle.vercel.app"),
@@ -10,12 +13,12 @@ export const metadata = {
   description: "A simple Next.js app with Vercel Postgres as the database and Drizzle as the ORM",
 };
 
-const fontSans = FontSans({
-  subsets: ["latin"],
+const fontSans = localFont({
+  src: "../public/fonts/OverusedGrotesk-VF.woff2",
   variable: "--font-sans",
 });
 
-const ptSans = Lugrasimo({
+const ptSans = Noto_Sans_Cuneiform({
   subsets: ["latin"],
   variable: "--font-main",
   weight: "400",
@@ -43,6 +46,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <div className='px-6 max-w-7xl mx-auto'>
             <Navbar />
             {children}
+            <Footer />
           </div>
         </ThemeProvider>
       </body>

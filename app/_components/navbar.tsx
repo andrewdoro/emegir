@@ -12,6 +12,10 @@ const Navbar = () => {
       {/* <Link href='https://vercel.com'>
         <Image src='/vercel.svg' alt='Vercel Logo' width={100} height={24} priority />
       </Link> */}
+      <p className='font-main text-2xl font-bold'>
+        𒅴𒂠
+        <span className='text-primary/50 font-sans text-md'>(Emegir)</span>
+      </p>
       <Link href='https://github.com/andrewdoro/emegir' className='flex items-center space-x-2'>
         <Button variant='ghost' size='icon'>
           <GithubIcon />

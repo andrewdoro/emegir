@@ -27,6 +27,7 @@ import {
 import { Globe } from "lucide-react";
 import { publishPage } from "./actions";
 import { Input } from "@/components/ui/input";
+import { demo } from "./content";
 
 const formSchema = z.object({
   content: z.custom<JSONContent>(),
@@ -35,7 +36,7 @@ export default function Home() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      content: {},
+      content: demo.content,
     },
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -46,27 +47,32 @@ export default function Home() {
   }
 
   const content = form.watch("content");
+  console.log(content);
   return (
     <div className='flex gap-12 w-full'>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 w-full'>
-          <FormField
-            control={form.control}
-            name='content'
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Editor
-                    defaultContent={field.value}
-                    onContentChange={field.onChange}
-                    className='min-h-[50vh] p-8 border rounded-xl'
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </form>
+        <Card>
+          <CardContent className='p-8'>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 w-full'>
+              <FormField
+                control={form.control}
+                name='content'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Editor
+                        defaultContent={field.value}
+                        onContentChange={field.onChange}
+                        className='min-h-[50vh] '
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </form>
+          </CardContent>
+        </Card>
         <Card className='h-fit sticky top-8'>
           <CardHeader>
             <CardTitle>Pubish to world</CardTitle>
