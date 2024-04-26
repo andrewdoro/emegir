@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/card";
 import Editor from "@/components/ui/editor";
 import { JSONContent } from "novel";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -29,7 +28,6 @@ import { publishPage } from "./actions";
 import { Input } from "@/components/ui/input";
 import { demo } from "./content";
 import Hero from "./_components/hero";
-import ProgressiveBlur from "./_components/progressive-blur";
 
 const formSchema = z.object({
   content: z.custom<JSONContent>(),
@@ -43,27 +41,21 @@ export default function Home() {
       slug: "",
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    publishPage({ title: "My Page", content: values.content });
-  }
+    const id = await publishPage({ title: "My Page", slug: values.slug, content: values.content });
+  };
 
   const content = form.watch("content");
   return (
     <div className='flex flex-col gap-4'>
-      {/* <ProgressiveBlur
-        className='fixed inset-0 z-10 pointer-events-none'
-        blurStart={5}
-        blurEnd={0}
-        layers={5}
-      /> */}
       <Hero />
       <div className='flex flex-col md:flex-row gap-4 w-full'>
         <Form {...form}>
           <Card>
             <CardContent className='p-8'>
-              <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 w-full'>
+              <form id='page' onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 w-full'>
                 <FormField
                   control={form.control}
                   name='content'
@@ -100,7 +92,7 @@ export default function Home() {
                     <FormItem>
                       <FormLabel>Slug</FormLabel>
                       <FormControl>
-                        <Input />
+                        <Input {...field} />
                       </FormControl>
                       <FormDescription>Will use this to generate your page</FormDescription>
 
@@ -114,10 +106,9 @@ export default function Home() {
               </div>
             </CardContent>
             <CardFooter className='justify-between'>
-              <Button>Preview</Button>
-              <Button onClick={() => console.log("Button clicked")}>
+              <Button type='submit' form='page'>
                 <Globe />
-                Button
+                Publish
               </Button>
             </CardFooter>
           </Card>

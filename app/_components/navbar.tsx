@@ -10,12 +10,10 @@ const Navbar = () => {
     <div className='flex justify-between py-6 items-center w-full gap-4'>
       <ThemeToggle />
 
-      <div className='relative'>
-        <p className='relative font-main text-2xl font-bold'>
-          𒅴𒂠
-          <span className='font-sans tracking-tighter  text-3xl'>Emegir</span>
-        </p>
-      </div>
+      <Link href='/' className='relative font-main text-2xl font-bold'>
+        𒅴𒂠
+        <span className='font-sans tracking-tighter  text-3xl'>Emegir</span>
+      </Link>
       <Link href='https://github.com/andrewdoro/emegir' className='flex items-center space-x-2'>
         <Button variant='ghost' size='icon'>
           <GithubIcon />
